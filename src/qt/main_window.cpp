@@ -325,7 +325,7 @@ MainWindow::init()
 void
 MainWindow::readSettings()
 {
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     QSettings settings( QDir::homePath() + "/.soccerwindow2",
                         QSettings::IniFormat );
 #else
@@ -434,7 +434,7 @@ MainWindow::readSettings()
 void
 MainWindow::saveSettings()
 {
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     QSettings settings( QDir::homePath() + "/.soccerwindow2",
                         QSettings::IniFormat );
 #else
@@ -479,7 +479,7 @@ MainWindow::saveSettings()
 void
 MainWindow::readShortcutKeysSettings()
 {
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     QSettings settings( QDir::homePath() + "/.soccerwindow2",
                         QSettings::IniFormat );
 #else
@@ -507,7 +507,7 @@ MainWindow::readShortcutKeysSettings()
 void
 MainWindow::saveShortcutKeysSettings()
 {
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     QSettings settings( QDir::homePath() + "/.soccerwindow2",
                         QSettings::IniFormat );
 #else
@@ -682,7 +682,7 @@ MainWindow::createActionsMonitor()
              this, SLOT( disconnectMonitor() ) );
     this->addAction( M_disconnect_monitor_act );
     //
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     M_kill_server_act = new QAction( tr( "Kill server" ), this );
     M_kill_server_act->setObjectName( "kill_server" );
     M_kill_server_act->setStatusTip( tr( "Kill the rcssserver process" ) );
@@ -707,7 +707,7 @@ MainWindow::createActionsMonitor()
              this, SLOT( showTrainerDialog() ) );
     this->addAction( M_show_trainer_dialog_act );
     //
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     M_show_launcher_dialog_act = new QAction( tr( "Launcher Dialog" ), this );
 #ifdef Q_WS_MAC
     M_show_launcher_dialog_act->setShortcut( Qt::META + Qt::Key_X );
@@ -1476,16 +1476,14 @@ MainWindow::createMenuMonitor()
     menu->addAction( M_connect_monitor_act );
     menu->addAction( M_connect_monitor_to_act );
     menu->addAction( M_disconnect_monitor_act );
-
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     menu->addSeparator();
     menu->addAction( M_kill_server_act );
     menu->addAction( M_restart_server_act );
 #endif
     menu->addSeparator();
     menu->addAction( M_show_trainer_dialog_act );
-
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     menu->addSeparator();
     menu->addAction( M_show_launcher_dialog_act );
 #endif
@@ -1828,7 +1826,7 @@ MainWindow::createSystemPopupMenu()
     QMenu * menu = new QMenu( M_field_canvas );
     menu->addAction( M_open_rcg_act );
     menu->addAction( M_connect_monitor_act );
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     menu->addSeparator();
     menu->addAction( M_kill_server_act );
     // menu->addAction( M_restart_server_act );
@@ -2686,7 +2684,7 @@ MainWindow::connectMonitorTo( const char * hostname )
     M_connect_monitor_act->setEnabled( false );
     M_connect_monitor_to_act->setEnabled( false );
     M_disconnect_monitor_act->setEnabled( true );
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     M_kill_server_act->setEnabled( true );
 #endif
 
@@ -2746,7 +2744,7 @@ MainWindow::disconnectMonitor()
     M_connect_monitor_act->setEnabled( true );
     M_connect_monitor_to_act->setEnabled( true );
     M_disconnect_monitor_act->setEnabled( false );
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     M_kill_server_act->setEnabled( false );
 #endif
 
@@ -2764,8 +2762,7 @@ MainWindow::killServer()
     disconnectMonitor();
 
     Options::instance().setKillServer( false );
-
-#ifndef Q_WS_WIN
+#if !defined(Q_WS_WIN) && !defined(_WIN32)
     if ( Options::instance().serverPID() != 0 )
     {
         Options::instance().setServerPID( 0 );
