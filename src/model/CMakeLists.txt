@@ -24,7 +24,7 @@ add_library(model STATIC
   )
 
 
-target_include_directories(model PUBLIC
+target_include_directories(model
   PUBLIC
   ${Boost_INCLUDE_DIRS}
   ${LIBRCSC_INCLUDE_DIR}
@@ -32,3 +32,13 @@ target_include_directories(model PUBLIC
   ${PROJECT_SOURCE_DIR}
   ${PROJECT_BINARY_DIR}
   )
+
+target_link_libraries(model
+  PUBLIC
+  ${LIBRCSC_LIB}
+  Boost::system
+  )
+
+if(ZLIB_FOUND)
+  target_link_libraries(model PUBLIC ZLIB::ZLIB)
+endif()

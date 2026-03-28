@@ -63,13 +63,10 @@ target_include_directories(soccerwindow2
   )
 
 target_link_libraries(soccerwindow2
-  PUBLIC
-  ${LIBRCSC_LIB}
-  ${QT_LIBS}
-  ZLIB::ZLIB
-  Boost::system
   PRIVATE
   model
+  PUBLIC
+  ${QT_LIBS}
   )
 
 set_target_properties(soccerwindow2
