@@ -25,11 +25,11 @@ add_executable(soccerwindow2
   field_painter.cpp
   font_setting_dialog.cpp
   formation_data_view.cpp
-  formattion_editor_painter.cpp
-  formattion_editor_window.cpp
+  formation_editor_painter.cpp
+  formation_editor_window.cpp
   image_save_dialog.cpp
   launcher_dialog.cpp
-  ranking_editor_window.cpp
+  label_editor_window.cpp
   log_player.cpp
   log_player_tool_bar.cpp
   main.cpp
