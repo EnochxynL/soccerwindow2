@@ -130,6 +130,18 @@ public:
                      const rcsc::rcg::TeamT & team_r );
 
     virtual
+    bool handlePlayerType( const rcsc::rcg::PlayerTypeT & param );
+    virtual
+    bool handleServerParam( const rcsc::rcg::ServerParamT & param );
+    virtual
+    bool handlePlayerParam( const rcsc::rcg::PlayerParamT & param );
+    virtual
+    bool handleTeamGraphic( const char side,
+                const int x,
+                const int y,
+                const std::vector< std::string > & xpm_data );
+
+    virtual
     bool handlePlayerType( const std::string & msg );
     virtual
     bool handleServerParam( const std::string & msg );

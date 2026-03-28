@@ -608,6 +608,65 @@ ViewHolder::handleTeam( const int,
 
 */
 bool
+ViewHolder::handlePlayerType( const rcsc::rcg::PlayerTypeT & param )
+{
+    std::ostringstream ostr;
+    param.toServerString( ostr );
+    return handlePlayerType( ostr.str() );
+}
+
+/*-------------------------------------------------------------------*/
+/*!
+
+*/
+bool
+ViewHolder::handleServerParam( const rcsc::rcg::ServerParamT & param )
+{
+    std::ostringstream ostr;
+    param.toServerString( ostr );
+    return handleServerParam( ostr.str() );
+}
+
+/*-------------------------------------------------------------------*/
+/*!
+
+*/
+bool
+ViewHolder::handlePlayerParam( const rcsc::rcg::PlayerParamT & param )
+{
+    std::ostringstream ostr;
+    param.toServerString( ostr );
+    return handlePlayerParam( ostr.str() );
+}
+
+/*-------------------------------------------------------------------*/
+/*!
+
+*/
+bool
+ViewHolder::handleTeamGraphic( const char side,
+                               const int x,
+                               const int y,
+                               const std::vector< std::string > & xpm_data )
+{
+    if ( side == 'l' )
+    {
+        return M_team_graphic_left.addXpmTile( x, y, xpm_data );
+    }
+
+    if ( side == 'r' )
+    {
+        return M_team_graphic_right.addXpmTile( x, y, xpm_data );
+    }
+
+    return false;
+}
+
+/*-------------------------------------------------------------------*/
+/*!
+
+*/
+bool
 ViewHolder::handlePlayerType( const std::string & msg )
 {
     rcsc::PlayerType player_type( msg.c_str(), 999.0 );
