@@ -57,6 +57,7 @@ target_include_directories(soccerwindow2
   ${LIBRCSC_INCLUDE_DIR}
   PRIVATE
   ${PROJECT_SOURCE_DIR}
+  ${PROJECT_SOURCE_DIR}/src/qt
   ${PROJECT_SOURCE_DIR}/src/model
   ${PROJECT_BINARY_DIR}
   )
