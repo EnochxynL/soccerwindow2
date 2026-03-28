@@ -46,7 +46,7 @@ public:
       { }
 
     virtual
-    bool handleText( const DrawText & text ) = 0;
+    bool handleText( const DrawTextData & text ) = 0;
 
     virtual
     bool handlePoint( const DrawPoint & point ) = 0;

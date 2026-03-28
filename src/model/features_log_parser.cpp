@@ -57,7 +57,7 @@ public:
         : group_( group )
       { }
 
-    bool handleText( const DrawText & text )
+    bool handleText( const DrawTextData & text )
       {
           group_->texts_.push_back( text );
           return true;

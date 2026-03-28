@@ -35,16 +35,16 @@
 #include <string>
 #include <list>
 
-struct DrawText {
+struct DrawTextData {
     double x_;
     double y_;
     std::string color_;
     std::string msg_;
 
-    DrawText( const double x,
-              const double y,
-              const std::string & color,
-              const std::string & msg )
+    DrawTextData( const double x,
+            const double y,
+            const std::string & color,
+            const std::string & msg )
         : x_( x ),
           y_( y ),
           color_( color ),
@@ -130,7 +130,7 @@ struct DrawCircle {
       { }
 };
 
-using DrawTextCont = std::list< DrawText >;
+using DrawTextCont = std::list< DrawTextData >;
 using DrawPointCont = std::list< DrawPoint >;
 using DrawLineCont = std::list< DrawLine >;
 using DrawRectCont = std::list< DrawRect >;

@@ -56,7 +56,7 @@ public:
       { }
 
 
-    bool handleText( const DrawText & text )
+    bool handleText( const DrawTextData & text )
       {
           holder_.addText( time_, text );
           return true;
@@ -173,7 +173,7 @@ DrawDataHolder::open( const std::string & filepath )
 */
 void
 DrawDataHolder::addText( const rcsc::GameTime & time,
-                         const DrawText & text )
+                         const DrawTextData & text )
 {
     M_data_map[time].texts_.push_back( text );
 }

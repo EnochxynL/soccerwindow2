@@ -60,7 +60,7 @@ public:
     const Map & dataMap() const { return M_data_map; }
 
     void addText( const rcsc::GameTime & time,
-                  const DrawText & text );
+                  const DrawTextData & text );
     void addPoint( const rcsc::GameTime & time,
                    const DrawPoint & point );
     void addLine( const rcsc::GameTime & time,

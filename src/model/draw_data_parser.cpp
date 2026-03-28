@@ -147,7 +147,7 @@ DrawDataParser::parseText( const char * buf )
         return 0;
     }
 
-    M_handler.handleText( DrawText( x, y, color, text ) );
+    M_handler.handleText( DrawTextData( x, y, color, text ) );
     return n_read;
 }
 

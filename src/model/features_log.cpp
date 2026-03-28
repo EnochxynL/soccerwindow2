@@ -84,7 +84,7 @@ Features::printLog( std::ostream & os ) const
 
     if ( drawData() )
     {
-        for ( const DrawText & t : drawData()->texts_ )
+        for ( const DrawTextData & t : drawData()->texts_ )
         {
             os << " (t " << t.x_ << ' ' << t.y_ << ' ' << std::quoted( t.msg_ ) << ' ' << std::quoted( t.color_ ) << ')';
         }
