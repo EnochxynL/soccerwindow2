@@ -17,11 +17,11 @@ add_executable(soccerwindow2
   dir_selector.cpp
   draw_config.cpp
   draw_data_painter.cpp
-  evaluation_window.cpp
-  evaluator_control_panel.cpp
+  obsolete/evaluation_window.cpp
+  obsolete/evaluator_control_panel.cpp
   features_log_painter.cpp
   field_canvas.cpp
-  field_evaluation_painter.cpp
+  obsolete/field_evaluation_painter.cpp
   field_painter.cpp
   font_setting_dialog.cpp
   formation_data_view.cpp
