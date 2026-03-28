@@ -50,6 +50,65 @@
 #include <cassert>
 #include <cstring>
 
+namespace {
+
+bool
+extractQuotedTokens( const std::string & msg,
+                     std::vector< std::string > & out )
+{
+    out.clear();
+
+    std::string::size_type pos = 0;
+    while ( true )
+    {
+        pos = msg.find( '"', pos );
+        if ( pos == std::string::npos )
+        {
+            break;
+        }
+
+        ++pos;
+
+        std::string token;
+        bool escaped = false;
+        for ( ; pos < msg.size(); ++pos )
+        {
+            const char c = msg[pos];
+            if ( escaped )
+            {
+                token.push_back( c );
+                escaped = false;
+                continue;
+            }
+
+            if ( c == '\\' )
+            {
+                escaped = true;
+                continue;
+            }
+
+            if ( c == '"' )
+            {
+                ++pos;
+                break;
+            }
+
+            token.push_back( c );
+        }
+
+        if ( escaped )
+        {
+            return false;
+        }
+
+        out.push_back( token );
+    }
+
+    return ! out.empty();
+}
+
+}
+
 const std::size_t RCG_SIZE_LIMIT = 6000 * 8;
 
 const std::string DEFAULT_DEBUG_VIEW_EXTENSION = ".dcl";
@@ -124,15 +183,15 @@ ViewHolder::saveRCG( std::ostream & os ) const
     }
 
     // header
-    serializer->serializeHeader( os );
+    serializer->serializeBegin( os, "", "" );
 
     // params
 
-    serializer->serializeParam( os, rcsc::ServerParam::i().toServerString() );
-    serializer->serializeParam( os, rcsc::PlayerParam::i().toServerString() );
+    serializer->serialize( os, rcsc::rcg::ServerParamT( rcsc::ServerParam::i().toServerString() ) );
+    serializer->serialize( os, rcsc::rcg::PlayerParamT( rcsc::PlayerParam::i().toServerString() ) );
     for ( std::map< int, rcsc::PlayerType >::const_reference v : playerTypeCont() )
     {
-        serializer->serializeParam( os, v.second.toServerString() );
+        serializer->serialize( os, rcsc::rcg::PlayerTypeT( v.second.toServerString() ) );
     }
 
     // playmode, team, show
@@ -145,6 +204,8 @@ ViewHolder::saveRCG( std::ostream & os ) const
 
         serializer->serialize( os, disp );
     }
+
+    serializer->serializeEnd( os );
 
     return os;
 }
@@ -836,18 +897,26 @@ ViewHolder::analyzeTeamGraphic( const std::string & msg )
         return false;
     }
 
+    std::vector< std::string > xpm_data;
+    if ( ! extractQuotedTokens( msg, xpm_data ) )
+    {
+        std::cerr << __FILE__ << ": (analyzeTeamGraphic) Failed to parse xpm data ["
+                  << msg << "]" << std::endl;
+        return false;
+    }
+
     if ( side == 'l' )
     {
         //std::cerr << "recv team_graphic_l (" << x << ',' << y << ')'
         //          << std::endl;
-        return M_team_graphic_left.parse( msg.c_str() );
+        return M_team_graphic_left.addXpmTile( x, y, xpm_data );
     }
 
     if ( side == 'r' )
     {
         //std::cerr << "recv team_graphic_r (" << x << ',' << y << ')'
         //          << std::endl;
-        return M_team_graphic_right.parse( msg.c_str() );
+        return M_team_graphic_right.addXpmTile( x, y, xpm_data );
     }
 
     return false;
